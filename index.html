@@ -18,17 +18,18 @@
   <header class="site-header">
     <nav class="navbar container" aria-label="Navigasi utama">
       <a class="brand" href="#home" aria-label="Kembali ke halaman utama">
-        <span class="brand-mark" aria-hidden="true">Y</span>
-        <span class="brand-copy"><strong>YKKBI</strong><small>Forkom AP 2026</small></span>
+        <!-- Tempatkan file logo YKKBI di dalam area ini. -->
+        <span class="brand-canvas" aria-label="Tempat logo YKKBI"></span>
       </a>
 
       <ol class="nav-links">
         <li><a href="#home"><span>01</span> Home</a></li>
-        <li><a href="#tentang"><span>02</span> Tentang</a></li>
-        <li><a href="#rundown"><span>03</span> Rundown</a></li>
-        <li><a href="#busana"><span>04</span> Busana</a></li>
-        <li><a href="#lokasi"><span>05</span> Lokasi</a></li>
-        <li><a href="#informasi"><span>06</span> Informasi</a></li>
+        <li><a href="#attendance"><span>02</span> Kehadiran</a></li>
+        <li><a href="#tentang"><span>03</span> Tentang</a></li>
+        <li><a href="#rundown"><span>04</span> Rundown</a></li>
+        <li><a href="#busana"><span>05</span> Busana</a></li>
+        <li><a href="#lokasi"><span>06</span> Lokasi</a></li>
+        <li><a href="#informasi"><span>07</span> Informasi</a></li>
       </ol>
 
       <a class="header-date" href="#rundown"><span>09–10</span><small>SEP 2026</small></a>
@@ -37,50 +38,117 @@
 
   <main id="main-content">
     <!-- PAGE 01: HOME -->
-    <section class="page hero" id="home" aria-labelledby="home-title">
+    <section class="page hero attendance-hero" id="home" aria-labelledby="home-title">
       <div class="hero-orbit orbit-one" aria-hidden="true"></div>
       <div class="hero-orbit orbit-two" aria-hidden="true"></div>
 
-      <div class="container hero-layout">
-        <div class="hero-content">
-          <p class="eyebrow"><span></span> Event booklet & rundown</p>
-          <h1 id="home-title">Forum Komunikasi <span>Anak Perusahaan</span> YKKBI 2026</h1>
-          <p class="hero-theme">“Value Creation untuk Meningkatkan Daya Saing Usaha dan Kinerja Berkelanjutan”</p>
+      <div class="container hero-layout attendance-layout">
+        <div class="hero-content attendance-content">
+          <p class="eyebrow"><span></span> Event attendance portal</p>
 
-          <div class="hero-actions">
-            <a class="button button-primary" href="#rundown">Lihat rundown <span aria-hidden="true">↘</span></a>
-            <a class="button button-ghost" href="#tentang">Jelajahi booklet</a>
+          <div class="event-titles">
+            <span class="event-title-label">Judul acara</span>
+            <h1 id="home-title">Forum Komunikasi <span>Anak Perusahaan</span> YKKBI 2026</h1>
+
+            <div class="activity-title">
+              <span>Nama kegiatan</span>
+              <strong id="activeActivityName">Rangkaian Forkom AP YKKBI 2026</strong>
+            </div>
           </div>
 
-          <dl class="hero-meta">
+          <form class="attendance-card" id="attendance" autocomplete="off">
+            <div class="attendance-heading">
+              <div>
+                <span class="attendance-kicker">Daftar kehadiran</span>
+                <h2>Konfirmasi kehadiran Anda</h2>
+              </div>
+              <span class="attendance-status is-closed" id="attendanceStatus">
+                <i aria-hidden="true"></i>
+                <span>Belum dibuka</span>
+              </span>
+            </div>
+
+            <div class="active-session" aria-live="polite">
+              <div>
+                <span>Kegiatan aktif</span>
+                <strong id="sessionName">Belum ada sesi aktif</strong>
+              </div>
+              <div>
+                <span>Waktu WITA</span>
+                <strong id="witaClock">--:--:--</strong>
+              </div>
+            </div>
+
+            <div class="attendance-fields">
+              <label class="form-field" for="companyInput">
+                <span>Nama perusahaan</span>
+                <input
+                  id="companyInput"
+                  name="company"
+                  type="search"
+                  list="companyOptions"
+                  placeholder="Cari atau pilih perusahaan"
+                  required
+                >
+                <datalist id="companyOptions">
+                  <option value="YKKBI"></option>
+                  <option value="PT Mulia Persada Indonesia"></option>
+                  <option value="PT Finnet Indonesia"></option>
+                  <option value="PT Hotel Bumikarsa Bidakara"></option>
+                  <option value="PT Bahana Sukma Sejahtera"></option>
+                  <option value="PT ORIX Indonesia Finance"></option>
+                </datalist>
+              </label>
+
+              <label class="form-field" for="memberInput">
+                <span>Nama anggota</span>
+                <input
+                  id="memberInput"
+                  name="member"
+                  type="search"
+                  list="memberOptions"
+                  placeholder="Cari atau pilih nama anggota"
+                  required
+                >
+                <datalist id="memberOptions">
+                  <option value="Nama Peserta 01"></option>
+                  <option value="Nama Peserta 02"></option>
+                  <option value="Nama Peserta 03"></option>
+                </datalist>
+              </label>
+            </div>
+
+            <p class="attendance-message" id="attendanceMessage" aria-live="polite">
+              Kehadiran hanya dapat dicatat pada sesi yang aktif, pukul 08.00–18.00 WITA.
+            </p>
+
+            <button class="attendance-submit" id="attendanceSubmit" type="submit" disabled>
+              <span>Catat kehadiran</span>
+              <span aria-hidden="true">↗</span>
+            </button>
+
+            <p class="prototype-note">Mode prototipe — data belum dikirim ke database resmi.</p>
+          </form>
+
+          <dl class="hero-meta attendance-meta">
             <div><dt>Tanggal</dt><dd>8–11 September 2026</dd></div>
             <div><dt>Lokasi</dt><dd>Senggigi, Lombok</dd></div>
-            <div><dt>Zona waktu</dt><dd>WITA</dd></div>
+            <div><dt>Zona waktu</dt><dd>WITA / Asia–Makassar</dd></div>
           </dl>
         </div>
 
-        <div class="hero-visual" aria-label="Ilustrasi suasana Senggigi, Lombok">
-          <!-- Ganti .island-visual dengan elemen img jika foto resmi sudah tersedia. -->
-          <div class="island-visual">
-            <span class="sun" aria-hidden="true"></span>
-            <span class="mountain mountain-back" aria-hidden="true"></span>
-            <span class="mountain mountain-front" aria-hidden="true"></span>
-            <span class="ocean-line line-one" aria-hidden="true"></span>
-            <span class="ocean-line line-two" aria-hidden="true"></span>
+        <div class="attendance-photo" aria-label="Tempat foto Pantai Lombok">
+          <!-- Ganti blok ini dengan: <img src="assets/pantai-lombok.jpg" alt="Pantai Lombok"> -->
+          <span class="photo-placeholder">Tempat foto<br>Pantai Lombok</span>
+          <div class="photo-gradient" aria-hidden="true"></div>
+          <div class="photo-caption">
+            <span>SENGGIGI, LOMBOK</span>
+            <strong>8–11 September 2026</strong>
           </div>
-
-          <div class="floating-card floating-card-top">
-            <span class="floating-label">Main venue</span>
-            <strong>Aruna Senggigi</strong>
-            <small>Resort & Convention</small>
+          <div class="photo-session-card">
+            <span>Attendance window</span>
+            <strong>08.00–18.00 WITA</strong>
           </div>
-
-          <div class="floating-card floating-card-bottom">
-            <span class="card-index">4</span>
-            <div><strong>Hari kegiatan</strong><small>Forum • GRC • Social Activity</small></div>
-          </div>
-
-          <div class="hero-caption"><span>FORUM 2026</span><span>LOMBOK, NTB</span></div>
         </div>
       </div>
 
@@ -280,5 +348,6 @@
       </div>
     </section>
   </main>
+  <script src="script.js"></script>
 </body>
 </html>
