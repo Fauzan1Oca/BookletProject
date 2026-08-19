@@ -685,7 +685,7 @@ a:focus-visible {
 .activity-title span,
 .attendance-kicker,
 .active-session span,
-.form-field > span,
+.form-field-label,
 .prototype-note {
   font-size: 0.62rem;
   font-weight: 700;
@@ -817,16 +817,22 @@ a:focus-visible {
   gap: 7px;
 }
 
-.form-field > span {
+.form-field-label {
   color: #5c6a70;
+  font-size: 0.62rem;
+  font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: none;
+}
+
+.combo-box {
+  position: relative;
 }
 
 .form-field input {
   width: 100%;
   height: 46px;
-  padding: 0 14px;
+  padding: 0 46px 0 14px;
   border: 1px solid #d7e0df;
   border-radius: 11px;
   outline: none;
@@ -837,13 +843,149 @@ a:focus-visible {
   transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
+.form-field input:hover:not(:disabled) {
+  border-color: #aac3c0;
+}
+
 .form-field input:focus {
   border-color: var(--teal-600);
   box-shadow: 0 0 0 4px rgb(14 125 123 / 11%);
 }
 
+.form-field input:disabled {
+  cursor: not-allowed;
+  color: #8d989c;
+  background: #f2f5f4;
+}
+
 .form-field input::placeholder {
   color: #9aa5aa;
+}
+
+.combo-toggle {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: 7px;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  color: var(--teal-700);
+  background: transparent;
+  cursor: pointer;
+  place-items: center;
+  transform: translateY(-50%);
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.combo-toggle:hover:not(:disabled),
+.combo-toggle:focus-visible {
+  color: var(--navy-900);
+  background: rgb(14 125 123 / 9%);
+}
+
+.combo-toggle:focus-visible {
+  outline: 2px solid rgb(14 125 123 / 28%);
+  outline-offset: 1px;
+}
+
+.combo-toggle:disabled {
+  color: #a9b2b5;
+  cursor: not-allowed;
+}
+
+.combo-toggle span {
+  display: block;
+  font-size: 1.15rem;
+  line-height: 1;
+  transform: translateY(-2px);
+  transition: transform 180ms ease;
+}
+
+.combo-box.is-open .combo-toggle span {
+  transform: translateY(2px) rotate(180deg);
+}
+
+.combo-menu {
+  position: absolute;
+  z-index: 80;
+  top: calc(100% + 8px);
+  right: 0;
+  left: 0;
+  max-height: 280px;
+  padding: 6px;
+  overflow-y: auto;
+  border: 1px solid rgb(13 105 103 / 18%);
+  border-radius: 14px;
+  background: rgb(255 255 255 / 98%);
+  box-shadow:
+    0 22px 50px rgb(7 35 46 / 18%),
+    0 5px 14px rgb(7 35 46 / 8%);
+  overscroll-behavior: contain;
+  scrollbar-color: rgb(14 125 123 / 38%) transparent;
+  scrollbar-width: thin;
+}
+
+.combo-menu[hidden] {
+  display: none;
+}
+
+.combo-option {
+  display: grid;
+  width: 100%;
+  min-height: 48px;
+  padding: 9px 11px;
+  border: 0;
+  border-radius: 10px;
+  color: var(--ink);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  gap: 2px;
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.combo-option + .combo-option {
+  margin-top: 2px;
+}
+
+.combo-option:hover,
+.combo-option:focus-visible,
+.combo-option.is-active {
+  outline: none;
+  color: var(--navy-900);
+  background: linear-gradient(90deg, rgb(14 125 123 / 13%), rgb(14 125 123 / 5%));
+}
+
+.combo-option[aria-selected="true"] {
+  color: var(--navy-900);
+  background: rgb(224 244 240 / 92%);
+}
+
+.combo-option-main {
+  overflow: hidden;
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+}
+
+.combo-option-meta {
+  color: #6f7f85;
+  font-size: 0.65rem;
+  line-height: 1.35;
+}
+
+.combo-empty {
+  margin: 0;
+  padding: 15px 12px;
+  color: #7a898e;
+  font-size: 0.72rem;
+  text-align: center;
 }
 
 .attendance-message {
@@ -2206,6 +2348,10 @@ a:focus-visible {
   .active-session,
   .attendance-fields {
     grid-template-columns: 1fr;
+  }
+
+  .combo-menu {
+    max-height: 230px;
   }
 
   .attendance-meta {
