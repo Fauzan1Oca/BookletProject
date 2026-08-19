@@ -5,18 +5,120 @@
    - Replace localStorage with a secure backend before the event.
 ========================================================= */
 
+/*
+  Nama instansi diambil dari kolom B.
+  Peserta setiap instansi merupakan gabungan kolom E dan F.
+*/
 const attendeeDirectory = {
-  "YKKBI": ["Nama Peserta 01", "Nama Peserta 02", "Nama Peserta 03"],
-  "PT Mulia Persada Indonesia": ["Nama Peserta MPI 01", "Nama Peserta MPI 02"],
-  "PT Finnet Indonesia": ["Nama Peserta Finnet 01", "Nama Peserta Finnet 02"],
-  "PT Hotel Bumikarsa Bidakara": ["Nama Peserta HBB 01", "Nama Peserta HBB 02"],
-  "PT Bahana Sukma Sejahtera": ["Nama Peserta BSS 01", "Nama Peserta BSS 02"],
-  "PT ORIX Indonesia Finance": ["Nama Peserta ORIX 01", "Nama Peserta ORIX 02"]
+  "PT Artajasa Pembayaran Elektronis": [
+    "Farida Peranginangin — Komisaris Utama",
+    "RD. M. Dudi Dermawan S. — Direktur Keuangan"
+  ],
+  "PT Anadi Sarana Tatahusada": [
+    "Arrow P. Siagian — Komisaris Utama",
+    "Andiwiana Septonarwanto — Direktur Utama",
+    "Ita Rulina — Direktur Keuangan",
+    "Zulfan Nukman — SPI"
+  ],
+  "PT Bikasoga": [
+    "Suharno Eliandy — Komisaris",
+    "Sukarelawati Permana — Direktur",
+    "Ferdi Rusdian — SPI"
+  ],
+  "PT Bidakara Indah Sejahtera": [
+    "Budiharto Setyawan — Komisaris Utama",
+    "Any Pudjiastuti — Direktur Keuangan"
+  ],
+  "PT Bisanta": [
+    "Ridzky Prihadi Tjahyanto — Komisaris",
+    "M. Taufik Amrozy — Direktur",
+    "Burhan Wahyudi — SDM"
+  ],
+  "PT Bali Ocean Magic": [
+    "Trisno Nugroho — Komisaris",
+    "Windy Johan — Direktur Keuangan"
+  ],
+  "PT Bidakara Savoy Homann Duaribu": [
+    "Sempa Arih Ginting — Komisaris",
+    "Endang K. Saputra — Direktur",
+    "Setia Permana — SPI",
+    "Andri Irawan — Akunting"
+  ],
+  "PT Casabona Development": [
+    "Herawanto — Komisaris Utama",
+    "Naek Tigor Sinaga — Direktur Utama",
+    "Andika Swasono — SPI"
+  ],
+  "PT Fajar Farmatama": [
+    "Hari Sugeng Raharjo — Komisaris",
+    "Sri Endah Susilo — Direktur Utama",
+    "Asmu Ali Mauladi — Direktur Bisnis dan Komersial",
+    "Doddi Sartono — SPI",
+    "Boy Anton Nugroho — SPI"
+  ],
+  "PT Finnet Indonesia": [
+    "Nurhayati Wisjnu Wardhani — Komisaris Utama",
+    "Anton Daryono — Direktur Technology Product & Operation"
+  ],
+  "PT Fajar Mekar Indah": [
+    "R. Erwin Soeriadimadja — Komisaris (Tentative)",
+    "Rahmat Dwi Saputra — Direktur",
+    "Rahmat Hidayat Kusuma - SPI"
+  ],
+  "PT Hotel Bumikarsa Bidakara": [
+    "Vitri Andayani — Komisaris",
+    "Wisnu Reza — Direktur",
+    "Hasti Adiani Dwiputranti — SPI"
+  ],
+  "PT Jagakarsa Realty": [
+    "Arief Budi Santoso — Direktur"
+  ],
+  "PT Kebon Agung": [
+    "Doni Primanto Joewono — Komisaris Utama",
+    "Dwi Pranoto — Komisaris",
+    "Didid Taurisianto — Direktur Utama",
+    "Prasetyo Budi Santoso — Direktur Produksi",
+    "Teddy Pirngadi — Direktur Keuangan",
+    "Faizal Riswan — SPI",
+    "Agus Eko Budiarto — SPI",
+    "Satya Bayu Putra — SPI",
+    "Umar — MR",
+    "M. Anas Mu’allif — SPI"
+  ],
+  "PT Kelola Jasa Artha": [
+    "Maimirza — Komisaris"
+  ],
+  "PT Aplikanusa Lintasarta": [
+    "Dody Budi Waluyo — Komisaris Utama",
+    "Hariyadi Ramelan — Direktur"
+  ],
+  "PT Mekar Prana Indah": [
+    "Budiyono — Komisaris Utama",
+    "Andry Prasmuko — Komisaris",
+    "Hilman Tisnawan — Direktur Utama",
+    "Faris Budiawan — Direktur Keuangan dan Logistik",
+    "Ferry Oktavian — Direktur Bisnis dan Komersial",
+    "Basuki Wibowo — SPI",
+    "Reza Abdullah S. — SPI",
+    "Retno Damayanti — SPI",
+    "Danan Tyas Wisaksono — MR",
+    "Kiki Kreisna Rifqi - Rizki — MR"
+  ],
+  "PT Orix Indonesia Finance": [
+    "J.B.P. Simandjuntak atau Dyah Nastiti K. — Komisaris Utama",
+    "Causa Iman Karana — Wakil Direktur Utama"
+  ],
+  "PT Solo Indah Dinamika": [
+    "Muhamad Nur — Komisaris Utama",
+    "Gunawan Saichu — Direktur Keuangan",
+    "Rozak Nur Kolis — SPI",
+    "Sri Ratnasari — Akunting"
+  ]
 };
 
 /*
-  Setiap sesi memiliki jendela presensi sendiri. Waktu memakai UTC+08:00 (WITA).
-  Batas global 08.00–18.00 tetap dijaga oleh daftar sesi berikut.
+  Setiap sesi memiliki jendela presensi sendiri.
+  Waktu memakai UTC+08:00 (WITA).
 */
 const attendanceSessions = [
   {
@@ -62,6 +164,7 @@ const attendanceSessions = [
 
 const form = document.querySelector("#attendance");
 const companyInput = document.querySelector("#companyInput");
+const companyOptions = document.querySelector("#companyOptions");
 const memberInput = document.querySelector("#memberInput");
 const memberOptions = document.querySelector("#memberOptions");
 const submitButton = document.querySelector("#attendanceSubmit");
@@ -78,7 +181,12 @@ function formatWita(date, withDate = false) {
   return new Intl.DateTimeFormat("id-ID", {
     timeZone: "Asia/Makassar",
     ...(withDate
-      ? { weekday: "long", day: "2-digit", month: "long", year: "numeric" }
+      ? {
+          weekday: "long",
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        }
       : {}),
     hour: "2-digit",
     minute: "2-digit",
@@ -88,17 +196,24 @@ function formatWita(date, withDate = false) {
 }
 
 function findActiveSession(now) {
-  return attendanceSessions.find(
-    (session) => now >= session.startTime && now <= session.endTime
-  ) || null;
+  return (
+    attendanceSessions.find(
+      (session) => now >= session.startTime && now <= session.endTime
+    ) || null
+  );
 }
 
 function findNextSession(now) {
-  return attendanceSessions.find((session) => session.startTime > now) || null;
+  return (
+    attendanceSessions.find(
+      (session) => session.startTime > now
+    ) || null
+  );
 }
 
 function updateAttendanceWindow() {
   const now = new Date();
+
   currentSession = findActiveSession(now);
   const nextSession = findNextSession(now);
 
@@ -110,33 +225,62 @@ function updateAttendanceWindow() {
     sessionName.textContent = currentSession.name;
     activityName.textContent = currentSession.name;
     statusText.textContent = "Presensi dibuka";
+
     statusBadge.classList.remove("is-closed");
     statusBadge.classList.add("is-open");
+
     submitButton.disabled = false;
-    message.textContent = "Presensi aktif. Pastikan perusahaan dan nama peserta sudah benar.";
+
+    message.textContent =
+      "Presensi aktif. Pastikan perusahaan dan nama peserta sudah benar.";
+
     return;
   }
 
   submitButton.disabled = true;
   statusText.textContent = "Belum dibuka";
+
   statusBadge.classList.remove("is-open");
   statusBadge.classList.add("is-closed");
 
   if (nextSession) {
-    sessionName.textContent = `Sesi berikutnya: ${nextSession.name}`;
+    sessionName.textContent =
+      `Sesi berikutnya: ${nextSession.name}`;
+
     activityName.textContent = nextSession.name;
-    message.textContent = `Presensi berikutnya dibuka pada ${formatWita(nextSession.startTime, true)} WITA.`;
+
+    message.textContent =
+      `Presensi berikutnya dibuka pada ${
+        formatWita(nextSession.startTime, true)
+      } WITA.`;
   } else {
     sessionName.textContent = "Seluruh sesi telah selesai";
-    activityName.textContent = "Rangkaian Forkom AP YKKBI 2026 selesai";
-    message.textContent = "Periode pencatatan kehadiran telah berakhir.";
+
+    activityName.textContent =
+      "Rangkaian Forkom AP YKKBI 2026 selesai";
+
+    message.textContent =
+      "Periode pencatatan kehadiran telah berakhir.";
   }
+}
+
+function populateCompanyOptions() {
+  if (!companyOptions) return;
+
+  companyOptions.replaceChildren(
+    ...Object.keys(attendeeDirectory).map((company) => {
+      const option = document.createElement("option");
+      option.value = company;
+      return option;
+    })
+  );
 }
 
 function populateMemberOptions(company) {
   if (!memberOptions) return;
 
   const names = attendeeDirectory[company] || [];
+
   memberOptions.replaceChildren(
     ...names.map((name) => {
       const option = document.createElement("option");
@@ -146,6 +290,7 @@ function populateMemberOptions(company) {
   );
 
   memberInput.value = "";
+
   memberInput.placeholder = names.length
     ? "Cari atau pilih nama anggota"
     : "Pilih perusahaan terlebih dahulu";
@@ -153,26 +298,40 @@ function populateMemberOptions(company) {
 
 function setFormMessage(text, type = "") {
   message.textContent = text;
-  message.classList.remove("is-success", "is-error");
-  if (type) message.classList.add(`is-${type}`);
+
+  message.classList.remove(
+    "is-success",
+    "is-error"
+  );
+
+  if (type) {
+    message.classList.add(`is-${type}`);
+  }
 }
 
 companyInput?.addEventListener("change", (event) => {
-  populateMemberOptions(event.target.value.trim());
+  const company = event.target.value.trim();
+  populateMemberOptions(company);
 });
 
 companyInput?.addEventListener("input", (event) => {
-  if (attendeeDirectory[event.target.value.trim()]) {
-    populateMemberOptions(event.target.value.trim());
-  }
+  const company = event.target.value.trim();
+
+  populateMemberOptions(
+    attendeeDirectory[company] ? company : ""
+  );
 });
 
 form?.addEventListener("submit", (event) => {
   event.preventDefault();
+
   updateAttendanceWindow();
 
   if (!currentSession) {
-    setFormMessage("Presensi tidak dapat dicatat karena tidak ada sesi aktif.", "error");
+    setFormMessage(
+      "Presensi tidak dapat dicatat karena tidak ada sesi aktif.",
+      "error"
+    );
     return;
   }
 
@@ -181,13 +340,21 @@ form?.addEventListener("submit", (event) => {
   const validMembers = attendeeDirectory[company] || [];
 
   if (!attendeeDirectory[company]) {
-    setFormMessage("Pilih perusahaan yang tersedia pada daftar.", "error");
+    setFormMessage(
+      "Pilih perusahaan yang tersedia pada daftar.",
+      "error"
+    );
+
     companyInput.focus();
     return;
   }
 
   if (!validMembers.includes(member)) {
-    setFormMessage("Pilih nama anggota yang sesuai dengan perusahaan.", "error");
+    setFormMessage(
+      "Pilih nama anggota yang sesuai dengan perusahaan.",
+      "error"
+    );
+
     memberInput.focus();
     return;
   }
@@ -201,36 +368,54 @@ form?.addEventListener("submit", (event) => {
   };
 
   const savedRecords = JSON.parse(
-    localStorage.getItem("forkomAttendancePrototype") || "[]"
+    localStorage.getItem(
+      "forkomAttendancePrototype"
+    ) || "[]"
   );
+
   const duplicate = savedRecords.some(
-    (item) => item.member === member && item.session === currentSession.name
+    (item) =>
+      item.company === company &&
+      item.member === member &&
+      item.session === currentSession.name
   );
 
   if (duplicate) {
-    setFormMessage("Nama ini sudah tercatat pada sesi yang sedang aktif.", "error");
+    setFormMessage(
+      "Nama ini sudah tercatat pada sesi yang sedang aktif.",
+      "error"
+    );
     return;
   }
 
   savedRecords.push(record);
+
   localStorage.setItem(
     "forkomAttendancePrototype",
     JSON.stringify(savedRecords)
   );
 
   setFormMessage(
-    `Kehadiran ${member} tercatat pada ${record.timestampWita} WITA (prototipe lokal).`,
+    `Kehadiran ${member} tercatat pada ` +
+      `${record.timestampWita} WITA (prototipe lokal).`,
     "success"
   );
 
   /*
-    PRODUKSI:
-    Ganti penyimpanan localStorage di atas dengan fetch() ke endpoint backend.
-    Backend wajib memeriksa ulang sesi aktif menggunakan waktu server WITA,
-    lalu menyimpan participant_id, company_id, session_id, dan server_timestamp.
+    PRODUCTION:
+    Replace localStorage with fetch() to a backend endpoint.
+
+    The backend must validate the active session using server time
+    before saving participant_id, company_id, session_id,
+    and server_timestamp.
   */
 });
 
+populateCompanyOptions();
 populateMemberOptions("");
 updateAttendanceWindow();
-setInterval(updateAttendanceWindow, 1000);
+
+setInterval(
+  updateAttendanceWindow,
+  1000
+);
