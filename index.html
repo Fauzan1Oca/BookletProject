@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260817-1">
+  <link rel="stylesheet" href="style.css?v=20260820-1">
 </head>
 
 <body>
@@ -80,42 +80,61 @@
             </div>
 
             <div class="attendance-fields">
-              <label class="form-field" for="companyInput">
-                <span>Nama perusahaan</span>
-                <input
-                  id="companyInput"
-                  name="company"
-                  type="search"
-                  list="companyOptions"
-                  placeholder="Cari atau pilih perusahaan"
-                  required
-                >
-                <datalist id="companyOptions">
-                  <option value="YKKBI"></option>
-                  <option value="PT Mulia Persada Indonesia"></option>
-                  <option value="PT Finnet Indonesia"></option>
-                  <option value="PT Hotel Bumikarsa Bidakara"></option>
-                  <option value="PT Bahana Sukma Sejahtera"></option>
-                  <option value="PT ORIX Indonesia Finance"></option>
-                </datalist>
-              </label>
+              <div class="form-field">
+                <label class="form-field-label" for="companyInput">Nama perusahaan</label>
+                <div class="combo-box" data-combobox="company">
+                  <input
+                    id="companyInput"
+                    name="company"
+                    type="search"
+                    placeholder="Cari atau pilih perusahaan"
+                    role="combobox"
+                    aria-autocomplete="list"
+                    aria-expanded="false"
+                    aria-controls="companyOptions"
+                    autocomplete="off"
+                    required
+                  >
+                  <button
+                    class="combo-toggle"
+                    type="button"
+                    aria-label="Buka daftar perusahaan"
+                    data-combo-toggle="company"
+                  >
+                    <span aria-hidden="true">⌄</span>
+                  </button>
+                  <div class="combo-menu" id="companyOptions" role="listbox" hidden></div>
+                </div>
+              </div>
 
-              <label class="form-field" for="memberInput">
-                <span>Nama anggota</span>
-                <input
-                  id="memberInput"
-                  name="member"
-                  type="search"
-                  list="memberOptions"
-                  placeholder="Cari atau pilih nama anggota"
-                  required
-                >
-                <datalist id="memberOptions">
-                  <option value="Nama Peserta 01"></option>
-                  <option value="Nama Peserta 02"></option>
-                  <option value="Nama Peserta 03"></option>
-                </datalist>
-              </label>
+              <div class="form-field">
+                <label class="form-field-label" for="memberInput">Nama anggota</label>
+                <div class="combo-box" data-combobox="member">
+                  <input
+                    id="memberInput"
+                    name="member"
+                    type="search"
+                    placeholder="Pilih perusahaan terlebih dahulu"
+                    role="combobox"
+                    aria-autocomplete="list"
+                    aria-expanded="false"
+                    aria-controls="memberOptions"
+                    autocomplete="off"
+                    disabled
+                    required
+                  >
+                  <button
+                    class="combo-toggle"
+                    type="button"
+                    aria-label="Buka daftar anggota"
+                    data-combo-toggle="member"
+                    disabled
+                  >
+                    <span aria-hidden="true">⌄</span>
+                  </button>
+                  <div class="combo-menu" id="memberOptions" role="listbox" hidden></div>
+                </div>
+              </div>
             </div>
 
             <p class="attendance-message" id="attendanceMessage" aria-live="polite">
@@ -348,6 +367,6 @@
       </div>
     </section>
   </main>
-  <script src="script.js?v=20260817-1"></script>
+  <script src="script.js?v=20260820-1"></script>
 </body>
 </html>

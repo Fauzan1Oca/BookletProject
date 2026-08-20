@@ -318,6 +318,11 @@ function splitParticipantLabel(value) {
 function closeCombo(control) {
   if (!control?.menu) return;
 
+  if (control.menu.tagName === "DATALIST") {
+    control.activeIndex = -1;
+    return;
+  }
+
   control.menu.hidden = true;
   control.box?.classList.remove("is-open");
   control.input?.setAttribute("aria-expanded", "false");
@@ -344,6 +349,12 @@ function selectComboValue(control, value) {
 }
 
 function createComboOption(control, value, index) {
+  if (control.menu.tagName === "DATALIST") {
+    const nativeOption = document.createElement("option");
+    nativeOption.value = value;
+    return nativeOption;
+  }
+
   const option = document.createElement("button");
   const main = document.createElement("span");
   const meta = document.createElement("span");
@@ -397,6 +408,10 @@ function renderComboOptions(control, query = "") {
   control.filteredValues = filteredValues;
   control.menu.replaceChildren();
 
+  if (!filteredValues.length && control.menu.tagName === "DATALIST") {
+    return;
+  }
+
   if (!filteredValues.length) {
     const empty = document.createElement("p");
     empty.className = "combo-empty";
@@ -416,6 +431,11 @@ function renderComboOptions(control, query = "") {
 
 function openCombo(control, showAll = false) {
   if (!control?.menu || control.input?.disabled) return;
+
+  if (control.menu.tagName === "DATALIST") {
+    renderComboOptions(control, showAll ? "" : control.input.value);
+    return;
+  }
 
   closeAllCombos(control);
   renderComboOptions(control, showAll ? "" : control.input.value);
@@ -486,7 +506,9 @@ function populateMemberOptions(company) {
 
   memberInput.value = "";
   memberInput.disabled = names.length === 0;
-  memberToggle.disabled = names.length === 0;
+  if (memberToggle) {
+    memberToggle.disabled = names.length === 0;
+  }
   memberInput.placeholder = names.length
     ? "Cari atau pilih nama anggota"
     : "Pilih perusahaan terlebih dahulu";
